@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OAuth2 Callback</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    h2, h3 {
+      color: #2c3e50;
+    }
+    pre {
+      background: #eee;
+      padding: 1rem;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <h2>Memproses login...</h2>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
+
+    if (code) {
+      document.body.innerHTML = `
+        <h3>✅ Login berhasil!</h3>
+        <p><strong>Authorization code:</strong></p>
+        <pre>${code}</pre>
+        <p>Gunakan <code>npm run auth</code> atau kirim ke backend untuk tukar token.</p>
+      `;
+      console.log("Authorization code:", code);
+
+      // Jika kamu punya backend, kirim ke sana:
+      // fetch('https://your-backend.com/oauth2callback?code=' + code)
+      //   .then(res => res.json())
+      //   .then(data => console.log(data));
+    } else {
+      document.body.innerHTML = `<h3>❌ Tidak ada kode diterima.</h3>`;
+    }
+  </script>
+</body>
+</html>
